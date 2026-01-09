@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YungD's Bio Link</title>
+  
+  <style>
+    /* RESET: Remove default browser spacing */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #YungD {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px; 
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .link {
+      background-color: turquoise;
+      color: white; 
+      padding: 12px 20px;
+      border: none;
+      text-decoration: none;
+      border-radius: 8px; 
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      transition: background 0.3s; 
+    }
+
+    .link:hover {
+      background-color: teal;
+      transform: translateY(-2px); 
+    }
+
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+      body.dark h1 {
+  color: #f5f5f5 ;
+}
+
+body.dark p {
+  color: #cccccc ;
+}
+
+body.dark #YungD {
+  background-color: #1e1e1e ;
+}
+
+body.dark .link {
+  background-color: #005f5f ;
+}
+
+body.dark button {
+  background-color: #f5f5f5 ;
+  color: #121212 ;
+}
+
+body.dark {
+  background-color: #121212 ;
+}
+  </style>
+</head>
+<body>
+  
+  <div id="YungD">
+    <button id="toggleMode">🌙 Dark Mode</button>
+
+    <div style="width: 80px; height: 80px; background: #ddd; border-radius: 50%;"></div>
+    
+    <h1>Yunus 'YungD' Fawaz</h1>
+    <p>Footballer ⚽ | Frontend Dev 💻 | Editor 🎬</p>
+
+    <a class="link" href="https://wa.me/2349020269841">Message on WhatsApp</a>
+    <a class="link" href="#" onclick="alert('Portfolio launching soon 🚀')">My Portfolio</a>
+    <a class="link" href="https://twitter.com/yungD" target="_blank">Twitter / X</a>
+    <a class="link" href="#">Check my YouTube</a>
+
+    <button onclick="copylink()">Share Profile</button>
+  </div>
+
+  <script>
+    function copylink() {
+      const link = window.location.href; 
+      
+      navigator.clipboard.writeText(link)
+        .then(() => {
+          alert('Link copied to clipboard! ✅');
+        })
+        .catch(err => {
+          console.error('Failed to copy:', err); // Log error for debugging
+          alert('Failed to copy ❌');
+        });
+    }
+
+    const toggleBtn = document.getElementById("toggleMode");
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+      toggleBtn.textContent = "☀️ Light Mode";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+
+      if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        toggleBtn.textContent = "☀️ Light Mode";
+      } else {
+        localStorage.setItem("theme", "light");
+        toggleBtn.textContent = "🌙 Dark Mode";
+      }
+    });
+  </script>
+
+</body>
+</html>

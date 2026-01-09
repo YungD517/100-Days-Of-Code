@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YungD's Digital Tasbeeh</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a; /* Dark background */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tasbeeh {
+      width: 300px;
+      padding: 30px;
+      background: #2a2a2a;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+      border: 2px solid #333;
+    }
+
+    #display {
+      background: #000;
+      color: #333; /* Default "Off" color */
+      font-family: 'Orbitron', sans-serif; 
+      font-size: 45px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 2px inset #444; 
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      gap: 10px;
+    }
+
+    .Btn {
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.1s;
+    }
+
+    .Btn:active { transform: scale(0.95); } 
+
+    #powerBtn { background-color: #ff4757; color: white; }
+    #resetBtn { background-color: #ffa502; color: white; }
+    #reduceBtn { background-color: #ced6e0; color: #333; }
+    #addBtn { 
+      background-color: #2ed573; 
+      color: white; 
+      grid-column: span 2; 
+      font-size: 18px;
+    }
+
+    .glow-green { color: #2ed573 !important; text-shadow: 0 0 10px #2ed573; }
+    .glow-red { color: #ff4757 !important; text-shadow: 0 0 10px #ff4757; }
+
+  </style>
+</head>
+<body>
+  
+  <div class="tasbeeh">
+    <div id="display">OFF</div>
+
+    <div class="controls">
+      <button class="Btn" id="powerBtn">POWER</button>
+      <button class="Btn" id="resetBtn">RESET</button>
+      <button class="Btn" id="reduceBtn">DECREASE</button>
+      <button class="Btn" id="reduceBtn" style="visibility: hidden;">-</button> <button class="Btn" id="addBtn">COUNT</button>
+    </div>
+  </div>
+
+
+  <script>
+    const display = document.getElementById("display");
+    const powerBtn = document.getElementById("powerBtn");
+    const addBtn = document.getElementById("addBtn");
+    const reduceBtn = document.getElementById("reduceBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let isOn = false;
+    let count = 0;
+
+    function updateScreen() {
+      if (!isOn) {
+        display.textContent = "OFF";
+        display.className = ""; // Remove all glows
+        return;
+      }
+
+      display.textContent = count;
+      
+      // Color Logic (Inside the function so it checks every time!)
+      display.className = ""; // Reset classes
+      if (count === 0) {
+        display.classList.add("glow-red");
+      } else {
+        display.classList.add("glow-green");
+      }
+    }
+
+    powerBtn.addEventListener("click", () => {
+      isOn = !isOn;
+      if (isOn) {
+        count = 0; 
+        powerBtn.textContent = "OFF";
+        powerBtn.style.background = "#333";
+      } else {
+        powerBtn.textContent = "POWER";
+        powerBtn.style.background = "#ff4757";
+      }
+      updateScreen(); 
+    });
+
+    addBtn.addEventListener("click", () => {
+      if (!isOn) return;
+      count++;
+      updateScreen(); 
+    });
+
+    reduceBtn.addEventListener("click", () => {
+      if (!isOn) return;
+      if (count > 0) { 
+        count--;
+        updateScreen();
+      } else {
+        alert("Subhanallah! We cannot count negative blessings. 😂");
+      }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      if (!isOn) return;
+      count = 0;
+      updateScreen(); 
+    });
+
+  </script>
+
+</body>
+</html>
